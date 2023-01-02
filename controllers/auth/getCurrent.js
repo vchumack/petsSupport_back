@@ -1,10 +1,14 @@
-const getCurrent = async(req, res) => {
-    const {name, email} = req.user;
+const getCurrent = async (req, res) => {
+  const { name, email, phone, city, birthday, avatarURL } = req.user;
 
-    res.json({
-        email, 
-        name,
-    })
-}
+  res.status(200).json({
+    email,
+    name,
+    phone,
+    city,
+    birthday,
+    avatarURL,
+  });
+};
 
 module.exports = getCurrent;

@@ -2,7 +2,9 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
 const { handleSaveErrors } = require("../helpers");
-
+const phoneRegexp = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/;
+const dateRegExp =
+  /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 // eslint-disable-next-line no-useless-escape
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -23,6 +25,15 @@ const userSchema = new Schema(
       minlength: 6,
       required: true,
     },
+    phone: {
+      type: String,
+      required: true,
+      match: phoneRegexp,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
     accessToken: {
       type: String,
       default: "",
@@ -35,6 +46,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    birthday: {
+      type: String,
+      match: dateRegExp,
+      default: "",
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -42,9 +58,11 @@ const userSchema = new Schema(
 userSchema.post("save", handleSaveErrors);
 
 const registerSchema = Joi.object({
-  name: Joi.string().required(),
+  name: Joi.string().min(1).required(),
   email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().min(7).max(32).required(),
+  phone: Joi.string().pattern(phoneRegexp).required(),
+  city: Joi.string().required(),
 });
 
 const loginSchema = Joi.object({
@@ -52,24 +70,29 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-const emailSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
-});
-
 const refreshSchema = Joi.object({
   refreshToken: Joi.string().required(),
 });
+const updateUserSchema = Joi.object({
+  name: Joi.string().min(1).optional(),
+  email: Joi.string().pattern(emailRegexp).optional(),
+  birthday: Joi.string().pattern(dateRegExp).optional(),
+  phone: Joi.string().pattern(phoneRegexp).optional(),
+  city: Joi.string().optional(),
+  avatarURL: Joi.string().optional(),
+}).min(1);
+// .max(1);
 
-const schemas = {
+const userSchemas = {
   registerSchema,
   loginSchema,
   refreshSchema,
-  emailSchema,
+  updateUserSchema,
 };
 
 const User = model("user", userSchema);
 
 module.exports = {
   User,
-  schemas,
+  userSchemas,
 };
