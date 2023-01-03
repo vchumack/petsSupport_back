@@ -13,3 +13,6 @@ PORT=3001
 REFRESH_JWT_SECRET =iPp-K1)(3zbf:FK
 ACCESS_JWT_SECRET=d)LYb7{RHJO[oT?
 MONGO_URL=mongodb+srv://admin:jQGTdoY5FnUU7oc9@cluster0.0nfzmbk.mongodb.net/petsSupport?retryWrites=true&w=majority
+CLOUD_NAME=dsrjlhmr8
+API_KEY=479195967513525
+API_SECRET= bOX5WgXeFP4kUFLN4jaNqsUEAH8

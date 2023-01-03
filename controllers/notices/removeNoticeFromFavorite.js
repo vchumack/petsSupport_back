@@ -22,7 +22,11 @@ const removeNoticeFromFavorite = async (req, res) => {
 
   res
     .status(201)
-    .json({ favorite: user.favorite, message: "notice deleted from favorite" });
+    .json({
+      favorite: user.favorite,
+      id,
+      message: "notice deleted from favorite",
+    });
 };
 
 module.exports = removeNoticeFromFavorite;

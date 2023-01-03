@@ -5,13 +5,19 @@ const ctrl = require("../../controllers/notices");
 
 const { ctrlWrapper } = require("../../helpers");
 
-const { validateBody, authenticate, isValidId } = require("../../middlewares");
+const {
+  validateBody,
+  authenticate,
+  isValidId,
+  upload,
+} = require("../../middlewares");
 
 const { noticesSchemas } = require("../../models/noticesSchema");
 
 router.post(
   "/",
   authenticate,
+  upload.single("avatar"),
   validateBody(noticesSchemas.noticeAddSchema),
   ctrlWrapper(ctrl.addNotice)
 );
