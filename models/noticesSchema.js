@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 const { handleSaveErrors } = require("../helpers");
 
-const categoryList = ["sell", "lost", "goodhends"];
+const categoryList = ["sell", "lost", "goodhands"];
 const sexList = ["male", "female"];
 const dateRegExp =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
@@ -12,7 +12,7 @@ const noticeSchema = new Schema(
   {
     category: {
       type: String,
-      enum: ["sell", "lost", "goodhends"],
+      enum: ["sell", "lost", "goodhands"],
       required: true,
     },
     title: {
@@ -41,7 +41,7 @@ const noticeSchema = new Schema(
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
     },
     imageURL: {
       type: String,
@@ -74,12 +74,12 @@ const noticeAddSchema = Joi.object({
     .valid(...sexList)
     .required(),
   location: Joi.string().required(),
-  price: Joi.number().required(),
+  price: Joi.number(),
   imageURL: Joi.string().required(),
   comments: Joi.string().min(8).max(120).required(),
 });
 
-const noticeSchemas = {
+const noticesSchemas = {
   noticeAddSchema,
 };
 
@@ -87,5 +87,5 @@ const Notice = model("notice", noticeSchema);
 
 module.exports = {
   Notice,
-  noticeSchemas,
+  noticesSchemas,
 };
