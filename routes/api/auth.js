@@ -1,31 +1,47 @@
-const express = require("express")
-
-const ctrl = require("../../controllers/auth")
-
-const {ctrlWrapper} = require("../../helpers")
-
-const {validateBody, authenticate, upload} = require("../../middlewares")
-
-const {schemas} = require("../../models/user")
-
+const express = require("express");
 const router = express.Router();
 
+const ctrl = require("../../controllers/auth");
+
+const { ctrlWrapper } = require("../../helpers");
+
+const {
+  validateBody,
+  authenticate,
+  // upload
+} = require("../../middlewares");
+
+const { userSchemas } = require("../../models/userSchema");
+
 // signup
-router.post("/register", validateBody(schemas.registerSchema), ctrlWrapper(ctrl.register))
-
-router.get("/verify/:verificationCode", ctrlWrapper(ctrl.verify))
-
-router.post("/verify", validateBody(schemas.emailSchema), ctrlWrapper(ctrl.resendEmail))
+router.post(
+  "/register",
+  validateBody(userSchemas.registerSchema),
+  ctrlWrapper(ctrl.register)
+);
 
 // signin
-router.post("/login", validateBody(schemas.loginSchema), ctrlWrapper(ctrl.login))
+router.post(
+  "/login",
+  validateBody(userSchemas.loginSchema),
+  ctrlWrapper(ctrl.login)
+);
 
-router.post("/refresh", validateBody(schemas.refreshSchema), ctrlWrapper(ctrl.refresh))
+router.post(
+  "/refresh",
+  validateBody(userSchemas.refreshSchema),
+  ctrlWrapper(ctrl.refresh)
+);
 
-router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent))
+router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
-router.get("/logout", authenticate, ctrlWrapper(ctrl.logout))
+router.get("/logout", authenticate, ctrlWrapper(ctrl.logout));
 
-router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar))
+// router.patch(
+//   "/avatars",
+//   authenticate,
+//   upload.single("avatar"),
+//   ctrlWrapper(ctrl.updateAvatar)
+// );
 
 module.exports = router;

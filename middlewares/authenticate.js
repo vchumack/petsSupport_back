@@ -1,30 +1,30 @@
 const jwt = require("jsonwebtoken");
 
-const {HttpError, ctrlWrapper} = require("../helpers")
+const { HttpError, ctrlWrapper } = require("../helpers");
 
-const {User} = require("../models/user")
+const { User } = require("../models/userSchema");
 
-const {ACCESS_SECRET_KEY} = process.env;
+const { ACCESS_JWT_SECRET } = process.env;
 
-const authenticate = async(req, res, next) => {
-    const {authorization = ""} = req.headers;
-    const [bearer, token] = authorization.split(" ");
+const authenticate = async (req, res, next) => {
+  const { authorization = "" } = req.headers;
+  const [bearer, token] = authorization.split(" ");
 
-    if(bearer !== "Bearer") {
-        throw HttpError(401)
+  if (bearer !== "Bearer") {
+    throw HttpError(401, "Not authorized.Please,provide a token");
+  }
+  try {
+    const { id } = jwt.verify(token, ACCESS_JWT_SECRET);
+    const user = await User.findById(id);
+    if (!user || !user.accessToken) {
+      throw new Error();
     }
-    try {
-        const {id} = jwt.verify(token, ACCESS_SECRET_KEY);
-        const user = await User.findById(id);
-        if(!user || !user.accessToken) {
-            throw new Error();
-        }
-        req.user = user;
-        next();
-    }
-    catch(error) {
-        throw HttpError(401)
-    }
-}
+    req.user = user;
+    req.token = token;
+    next();
+  } catch (error) {
+    throw HttpError(401, "Invalid token");
+  }
+};
 
 module.exports = ctrlWrapper(authenticate);
