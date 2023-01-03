@@ -81,7 +81,7 @@ const updateUserSchema = Joi.object({
   phone: Joi.string().pattern(phoneRegexp).optional(),
   city: Joi.string().optional(),
   avatarURL: Joi.string().optional(),
-}).min(1);
+});
 // .max(1);
 
 const userSchemas = {

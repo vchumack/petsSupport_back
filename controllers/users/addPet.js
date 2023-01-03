@@ -1,14 +1,16 @@
+const { uploadToCloudinary } = require("../../helpers");
 const { Pet } = require("../../models/petSchema");
 
 const addPet = async (req, res) => {
   const { _id: userId } = req.user;
-  const { name, birthday, breed, avatarURL, comments } = req.body;
+  const { name, birthday, breed, comments } = req.body;
+  const avatarURL = await uploadToCloudinary(req.file.path);
 
   const pet = await Pet.create({
     name,
     birthday,
     breed,
-    avatarURL,
+    avatarURL: avatarURL.secure_url,
     comments,
     owner: userId,
   });
