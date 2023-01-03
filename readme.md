@@ -10,6 +10,6 @@
 ### Файл ENV:
 
 PORT=3001
-DB_HOST=mongodb+srv://admin:jQGTdoY5FnUU7oc9@cluster0.0nfzmbk.mongodb.net/petsSupport?retryWrites=true&w=majority
-REFRESH_SECRET_KEY=ghgj6786FHFhht6565656%^%^67h
-ACCESS_SECRET_KEY=hnCGCbcbgcbgtR5^%^8Yf
+REFRESH_JWT_SECRET =iPp-K1)(3zbf:FK
+ACCESS_JWT_SECRET=d)LYb7{RHJO[oT?
+MONGO_URL=mongodb+srv://admin:jQGTdoY5FnUU7oc9@cluster0.0nfzmbk.mongodb.net/petsSupport?retryWrites=true&w=majority

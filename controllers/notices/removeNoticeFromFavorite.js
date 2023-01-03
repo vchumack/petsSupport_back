@@ -1,20 +1,20 @@
 const HttpError = require("../../helpers/HttpError.js");
 const { User } = require("../../models/userSchema.js");
 
-const addNoticeToFavorite = async (req, res) => {
+const removeNoticeFromFavorite = async (req, res) => {
   const { _id, favorite } = req.user;
   const { id } = req.params;
 
-  if (favorite.includes(id)) {
+  if (!favorite.includes(id)) {
     throw HttpError(
       409,
-      `Notice with id: ${id} is already in your favorite list`
+      `there is not notice with id: ${id} in your favorite list `
     );
   }
 
   const user = await User.findByIdAndUpdate(
     _id,
-    { $push: { favorite: id } },
+    { $pull: { favorite: id } },
     {
       new: true,
     }
@@ -22,7 +22,7 @@ const addNoticeToFavorite = async (req, res) => {
 
   res
     .status(201)
-    .json({ favorite: user.favorite, message: "notice add to favorite" });
+    .json({ favorite: user.favorite, message: "notice deleted from favorite" });
 };
 
-module.exports = addNoticeToFavorite;
+module.exports = removeNoticeFromFavorite;
