@@ -51,6 +51,10 @@ const userSchema = new Schema(
       match: dateRegExp,
       default: "",
     },
+    favorite: {
+      type: Array,
+      default: [],
+    },
   },
   { versionKey: false, timestamps: true }
 );

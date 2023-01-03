@@ -2,13 +2,19 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
 const { handleSaveErrors } = require("../helpers");
-const phoneRegexp = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/;
 
-// eslint-disable-next-line no-useless-escape
-const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const categoryList = ["sell", "lost", "goodhends"];
+const sexList = ["male", "female"];
+const dateRegExp =
+  /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 
 const noticeSchema = new Schema(
   {
+    category: {
+      type: String,
+      enum: ["sell", "lost", "goodhends"],
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -27,6 +33,7 @@ const noticeSchema = new Schema(
     },
     sex: {
       type: String,
+      enum: ["male", "female"],
       required: true,
     },
     location: {
@@ -35,14 +42,18 @@ const noticeSchema = new Schema(
     },
     price: {
       type: String,
-      required: true,
     },
-    avatarURL: {
+    imageURL: {
       type: String,
       required: true,
     },
     comments: {
       type: String,
+      required: true,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
   },
@@ -51,24 +62,30 @@ const noticeSchema = new Schema(
 
 noticeSchema.post("save", handleSaveErrors);
 
-const noticeGetSchema = Joi.object({
+const noticeAddSchema = Joi.object({
+  category: Joi.string()
+    .valid(...categoryList)
+    .required(),
+  title: Joi.string().min(2).max(48).required(),
   name: Joi.string().min(2).max(16).required(),
+  birthday: Joi.string().pattern(dateRegExp).required(),
   breed: Joi.string().min(2).max(24).required(),
+  sex: Joi.string()
+    .valid(...sexList)
+    .required(),
+  location: Joi.string().required(),
+  price: Joi.number().required(),
+  imageURL: Joi.string().required(),
   comments: Joi.string().min(8).max(120).required(),
-  avatarURL: Joi.string(),
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
-  phone: Joi.string().pattern(phoneRegexp).required(),
-  city: Joi.string().required(),
 });
 
-const schemas = {
-  noticeGetSchema,
+const noticeSchemas = {
+  noticeAddSchema,
 };
 
 const Notice = model("notice", noticeSchema);
 
 module.exports = {
   Notice,
-  schemas,
+  noticeSchemas,
 };
