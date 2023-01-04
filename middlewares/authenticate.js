@@ -23,7 +23,7 @@ const authenticate = async (req, res, next) => {
     req.token = token;
     next();
   } catch (error) {
-    throw HttpError(401, "Invalid token");
+    throw HttpError(403, "Invalid token");
   }
 };
 
