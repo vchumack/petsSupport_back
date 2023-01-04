@@ -8,6 +8,8 @@ const sexList = ["male", "female"];
 const dateRegExp =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 const cityRegexp = /^\s*(?:\w+\s*,\s*){1,}(?:\w+\s*)$/;
+// eslint-disable-next-line no-useless-escape
+const textRegexp = /^[A-Za-z0-9\s!@#$%^&*()_+=-`~\\\]\[{}|';:/.,?><]*$/;
 
 const noticeSchema = new Schema(
   {
@@ -18,10 +20,12 @@ const noticeSchema = new Schema(
     },
     title: {
       type: String,
+      match: textRegexp,
       required: true,
     },
     name: {
       type: String,
+      match: textRegexp,
       default: "",
     },
     birthday: {
@@ -30,7 +34,7 @@ const noticeSchema = new Schema(
     },
     breed: {
       type: String,
-
+      match: textRegexp,
       default: "",
     },
     sex: {
@@ -52,6 +56,7 @@ const noticeSchema = new Schema(
     },
     comments: {
       type: String,
+      match: textRegexp,
       default: "",
     },
     owner: {
@@ -69,17 +74,17 @@ const noticeAddSchema = Joi.object({
   category: Joi.string()
     .valid(...categoryList)
     .required(),
-  title: Joi.string().min(2).max(48).required(),
-  name: Joi.string().min(2).max(16).optional(),
+  title: Joi.string().min(2).max(48).pattern(textRegexp).required(),
+  name: Joi.string().min(2).max(16).pattern(textRegexp).optional(),
   birthday: Joi.string().pattern(dateRegExp).optional(),
-  breed: Joi.string().min(2).max(24).optional(),
+  breed: Joi.string().min(2).max(24).pattern(textRegexp).optional(),
   sex: Joi.string()
     .valid(...sexList)
     .required(),
-  location: Joi.string().required(),
+  location: Joi.string().pattern(cityRegexp).required(),
   price: Joi.number().optional(),
   imageURL: Joi.string().optional(),
-  comments: Joi.string().min(8).max(120).optional(),
+  comments: Joi.string().min(8).max(120).pattern(textRegexp).optional(),
 });
 
 const noticesSchemas = {
