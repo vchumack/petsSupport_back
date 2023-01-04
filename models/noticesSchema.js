@@ -7,6 +7,7 @@ const categoryList = ["sell", "lost", "goodhands"];
 const sexList = ["male", "female"];
 const dateRegExp =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
+const cityRegexp = /^\s*(?:\w+\s*,\s*){1,}(?:\w+\s*)$/;
 
 const noticeSchema = new Schema(
   {
@@ -21,15 +22,16 @@ const noticeSchema = new Schema(
     },
     name: {
       type: String,
-      required: true,
+      default: "",
     },
     birthday: {
       type: String,
-      required: true,
+      default: "",
     },
     breed: {
       type: String,
-      required: true,
+
+      default: "",
     },
     sex: {
       type: String,
@@ -38,6 +40,7 @@ const noticeSchema = new Schema(
     },
     location: {
       type: String,
+      match: cityRegexp,
       required: true,
     },
     price: {
@@ -45,13 +48,11 @@ const noticeSchema = new Schema(
     },
     imageURL: {
       type: String,
-      required: true,
-      default:
-        "https://e7.pngegg.com/pngimages/499/839/png-clipart-cat-silhouette-sticker-dog-beige-color-mammal-leaf.png",
+      default: "https://via.placeholder.com/300.png/#FDF7F2/#111111",
     },
     comments: {
       type: String,
-      required: true,
+      default: "",
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -69,16 +70,16 @@ const noticeAddSchema = Joi.object({
     .valid(...categoryList)
     .required(),
   title: Joi.string().min(2).max(48).required(),
-  name: Joi.string().min(2).max(16).required(),
-  birthday: Joi.string().pattern(dateRegExp).required(),
-  breed: Joi.string().min(2).max(24).required(),
+  name: Joi.string().min(2).max(16).optional(),
+  birthday: Joi.string().pattern(dateRegExp).optional(),
+  breed: Joi.string().min(2).max(24).optional(),
   sex: Joi.string()
     .valid(...sexList)
     .required(),
   location: Joi.string().required(),
-  price: Joi.number(),
+  price: Joi.number().optional(),
   imageURL: Joi.string().optional(),
-  comments: Joi.string().min(8).max(120).required(),
+  comments: Joi.string().min(8).max(120).optional(),
 });
 
 const noticesSchemas = {

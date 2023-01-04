@@ -22,14 +22,11 @@ const petSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      required: true,
-      default:
-        "https://e7.pngegg.com/pngimages/499/839/png-clipart-cat-silhouette-sticker-dog-beige-color-mammal-leaf.png",
+      default: "https://via.placeholder.com/300.png/#FDF7F2/#111111",
     },
     comments: {
       type: String,
       default: "",
-      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -46,7 +43,7 @@ const petAddSchema = Joi.object({
   name: Joi.string().min(2).max(16).required(),
   birthday: Joi.string().pattern(dateRegExp).required(),
   breed: Joi.string().min(2).max(16).required(),
-  comments: Joi.string().min(8).max(120).required(),
+  comments: Joi.string().min(8).max(120).optional(),
   avatarURL: Joi.string().optional(),
 });
 
