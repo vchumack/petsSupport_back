@@ -12,8 +12,8 @@ const removeNotice = async (req, res) => {
     throw HttpError(404, `failure, notice with id: ${noticeId} not found!`);
   }
   res.status(200).json({
-    message: `notice with id: ${notice._id} has been deleted`,
-    id: notice._id,
+    message: `notice with id: ${noticeId} has been deleted`,
+    id: noticeId,
   });
 };
 

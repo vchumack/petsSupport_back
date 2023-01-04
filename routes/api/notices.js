@@ -21,14 +21,14 @@ router.post(
   validateBody(noticesSchemas.noticeAddSchema),
   ctrlWrapper(ctrl.addNotice)
 );
-router.put(
-  "/:id",
+router.patch(
+  "/toFavorite/:id",
   authenticate,
   isValidId,
   ctrlWrapper(ctrl.addNoticeToFavorite)
 );
 router.patch(
-  "/:id",
+  "/removeFavorite/:id",
   authenticate,
   isValidId,
   ctrlWrapper(ctrl.removeNoticeFromFavorite)
