@@ -7,11 +7,15 @@ const dateRegExp =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 // eslint-disable-next-line no-useless-escape
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const cityRegexp = /^\s*(?:\w+\s*,\s*){1,}(?:\w+\s*)$/;
+// eslint-disable-next-line no-useless-escape
+const textRegexp = /^[A-Za-z0-9\s!@#$%^&*()_+=-`~\\\]\[{}|';:/.,?><]*$/;
 
 const userSchema = new Schema(
   {
     name: {
       type: String,
+      match: textRegexp,
       required: true,
     },
     email: {
@@ -33,6 +37,7 @@ const userSchema = new Schema(
     city: {
       type: String,
       required: true,
+      match: cityRegexp,
     },
     accessToken: {
       type: String,
@@ -44,7 +49,7 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      required: true,
+      default: "",
     },
     birthday: {
       type: String,
@@ -59,11 +64,11 @@ const userSchema = new Schema(
 userSchema.post("save", handleSaveErrors);
 
 const registerSchema = Joi.object({
-  name: Joi.string().min(1).required(),
+  name: Joi.string().min(1).pattern(textRegexp).required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(7).max(32).required(),
   phone: Joi.string().pattern(phoneRegexp).required(),
-  city: Joi.string().required(),
+  city: Joi.string().pattern(cityRegexp).required(),
 });
 
 const loginSchema = Joi.object({
@@ -75,11 +80,11 @@ const refreshSchema = Joi.object({
   refreshToken: Joi.string().required(),
 });
 const updateUserSchema = Joi.object({
-  name: Joi.string().min(1).optional(),
+  name: Joi.string().min(1).pattern(textRegexp).optional(),
   email: Joi.string().pattern(emailRegexp).optional(),
   birthday: Joi.string().pattern(dateRegExp).optional(),
   phone: Joi.string().pattern(phoneRegexp).optional(),
-  city: Joi.string().optional(),
+  city: Joi.string().pattern(cityRegexp).optional(),
   avatarURL: Joi.string().optional(),
 });
 // .max(1);

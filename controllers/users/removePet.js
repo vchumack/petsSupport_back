@@ -9,7 +9,7 @@ const removePet = async (req, res) => {
   }
   res.status(200).json({
     message: `pet with name ${pet.name} has been deleted`,
-    id: pet._id,
+    id,
   });
 };
 
