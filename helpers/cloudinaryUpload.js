@@ -10,11 +10,15 @@ cloudinary.config({
 });
 
 const uploadToCloudinary = async (path) => {
-  const resizeImg = await Jimp.read(path);
-  resizeImg.resize(250, 250);
-  await resizeImg.writeAsync(path);
-  const result = await cloudinary.uploader.upload(path);
-  return result;
+  try {
+    const resizeImg = await Jimp.read(path);
+    resizeImg.resize(250, 250);
+    await resizeImg.writeAsync(path);
+    const result = await cloudinary.uploader.upload(path);
+    return result;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 module.exports = uploadToCloudinary;
