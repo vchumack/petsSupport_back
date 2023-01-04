@@ -46,6 +46,8 @@ const noticeSchema = new Schema(
     imageURL: {
       type: String,
       required: true,
+      default:
+        "https://e7.pngegg.com/pngimages/499/839/png-clipart-cat-silhouette-sticker-dog-beige-color-mammal-leaf.png",
     },
     comments: {
       type: String,
@@ -75,7 +77,7 @@ const noticeAddSchema = Joi.object({
     .required(),
   location: Joi.string().required(),
   price: Joi.number(),
-  imageURL: Joi.string().required(),
+  imageURL: Joi.string().optional(),
   comments: Joi.string().min(8).max(120).required(),
 });
 
