@@ -3,7 +3,10 @@ const { Notice } = require("../../models/noticesSchema");
 const queryList = ["sell", "lost", "goodhands"];
 
 const getNoticeByCategory = async (req, res) => {
-  if (!queryList.includes(req.query)) {
+  const { category } = req.query;
+
+  console.log(category);
+  if (!queryList.includes(category)) {
     throw HttpError(
       400,
       `Bad Request:Your request must include something from this list: ${queryList.join(
