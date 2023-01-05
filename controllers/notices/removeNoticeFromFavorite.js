@@ -21,7 +21,7 @@ const removeNoticeFromFavorite = async (req, res) => {
   );
 
   res
-    .status(201)
+    .status(200)
     .json({
       favorite: user.favorite,
       id,
