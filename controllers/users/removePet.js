@@ -5,7 +5,7 @@ const removePet = async (req, res) => {
 
   const pet = await Pet.findByIdAndDelete(id);
   if (!pet) {
-    throw HttpError(404, `failure, notice with id: ${id} not found!`);
+    throw HttpError(404, `failure, pet with id: ${id} not found!`);
   }
   res.status(200).json({
     message: `pet with name ${pet.name} has been deleted`,
