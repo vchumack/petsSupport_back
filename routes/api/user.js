@@ -31,7 +31,7 @@ router.delete(
 );
 router.get("/", authenticate, ctrlWrapper(ctrl.getUserInfo));
 
-router.put(
+router.patch(
   "/",
   authenticate,
   upload.single("avatar"),
