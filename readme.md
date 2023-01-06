@@ -16,3 +16,5 @@ MONGO_URL=mongodb+srv://admin:jQGTdoY5FnUU7oc9@cluster0.0nfzmbk.mongodb.net/pets
 CLOUD_NAME=dsrjlhmr8
 API_KEY=479195967513525
 API_SECRET= bOX5WgXeFP4kUFLN4jaNqsUEAH8
+http://localhost:3001/api/api-docs/
+https://petssupportback-production.up.railway.app/api/api-docs
