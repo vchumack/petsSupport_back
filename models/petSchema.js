@@ -26,12 +26,14 @@ const petSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      default: "https://via.placeholder.com/300.png/#FDF7F2/#111111",
+      default: "",
+      required: true,
     },
     comments: {
       type: String,
       match: textRegexp,
       default: "",
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -48,7 +50,7 @@ const petAddSchema = Joi.object({
   name: Joi.string().min(2).max(16).pattern(textRegexp).required(),
   birthday: Joi.string().pattern(dateRegExp).required(),
   breed: Joi.string().min(2).max(16).pattern(textRegexp).required(),
-  comments: Joi.string().min(8).max(120).pattern(textRegexp).optional(),
+  comments: Joi.string().min(8).max(120).pattern(textRegexp).required(),
   avatarURL: Joi.string().optional(),
 });
 

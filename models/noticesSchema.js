@@ -52,7 +52,8 @@ const noticeSchema = new Schema(
     },
     imageURL: {
       type: String,
-      default: "https://via.placeholder.com/300.png/#FDF7F2/#111111",
+      default:
+        "https://www.cleanpng.com/png-dog-paw-cat-tiger-clip-art-paw-prints-5850995",
     },
     comments: {
       type: String,
