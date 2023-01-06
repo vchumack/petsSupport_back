@@ -1472,6 +1472,11 @@
       "NoticeAddResponse": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string",
+            "description": "ID notice",
+            "example": "63b6ec81f474e0269d338e9e"
+          },
           "category": {
             "type": "string",
             "description": "Category by notice",
@@ -1527,11 +1532,17 @@
             "description": "ID owner notices",
             "example": "63b420f8613598919c6a71a8"
           },
-          "_id": {
+          "email": {
             "type": "string",
-            "description": "ID notice",
-            "example": "63b6ec81f474e0269d338e9e"
+            "description": "User email",
+            "example": "test@gmail.com"
           },
+          "phone": {
+            "type": "string",
+            "description": "User phone",
+            "example": "+380936945352"
+          },
+
           "createdAt": {
             "type": "string",
             "description": "Date of create notice",
@@ -1544,6 +1555,7 @@
           }
         },
         "example": {
+          "_id": "63b6ec81f474e0269d338e9e",
           "category": "sell",
           "title": "dog sell",
           "name": "Sem",
@@ -1555,7 +1567,8 @@
           "imageURL": "https://via.placeholder.com/300.png/#FDF7F2/#111111",
           "comments": "Selling an awesome puppy",
           "owner": "63b420f8613598919c6a71a8",
-          "_id": "63b6ec81f474e0269d338e9e",
+          "email": "Vita@gmail.com",
+          "phone": "+380936945352",
           "createdAt": "2023-01-05T15:28:01.426Z",
           "updatedAt": "2023-01-05T15:28:01.426Z"
         }
