@@ -20,9 +20,9 @@ const getUserInfo = async (req, res) => {
       userInfo: {
         name,
         email,
-        birthday,
-        phone,
         city,
+        phone,
+        birthday,
       },
     },
   });
