@@ -6,6 +6,10 @@ const getNoticeByCategory = async (req, res) => {
   const { category } = req.query;
 
   console.log(category);
+  if (category === "") {
+    const result = await Notice.find();
+    res.status(200).json(result);
+  }
   if (!queryList.includes(category)) {
     throw HttpError(
       400,
