@@ -478,7 +478,7 @@
           {
             "name": "category",
             "in": "query",
-            "description": "Category by notyce: [sell, lost, goodhend]",
+            "description": "Category by notyce: [sell, lost, goodhend,'']",
             "required": true,
             "type": "string"
           }
