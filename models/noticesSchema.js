@@ -49,6 +49,7 @@ const noticeSchema = new Schema(
     },
     price: {
       type: Number,
+      default: null,
     },
     imageURL: {
       type: String,
@@ -63,6 +64,14 @@ const noticeSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
       required: true,
     },
   },

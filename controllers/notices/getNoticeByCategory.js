@@ -9,18 +9,18 @@ const getNoticeByCategory = async (req, res) => {
   if (category === "") {
     const result = await Notice.find();
     res.status(200).json(result);
-  }
-  if (!queryList.includes(category)) {
+  } else if (!queryList.includes(category)) {
     throw HttpError(
       400,
       `Bad Request:Your request must include something from this list: ${queryList.join(
         ","
       )}`
     );
+  } else {
+    const { ...query } = req.query;
+    const result = await Notice.find({ ...query });
+    res.status(200).json(result);
   }
-  const { ...query } = req.query;
-  const result = await Notice.find({ ...query });
-  res.status(200).json(result);
 };
 
 module.exports = getNoticeByCategory;
