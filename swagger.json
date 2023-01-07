@@ -929,6 +929,14 @@
             "type": "string",
             "description": "User's image",
             "example": "https://e7.pngegg.com/pngimages/499/839/png-clipart-cat-silhouette-sticker-dog-beige-color-mammal-leaf.png"
+          },
+          "favorite": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "User's favorite notices",
+              "example": "63b6ec81f474e0269d338e9e"
+            }
           }
         },
         "example": {
@@ -937,7 +945,12 @@
           "phone": "+380936987452",
           "city": "Kiev,Ukraine",
           "birthday": "01.03.2010",
-          "avatarURL": "https://e7.pngegg.com/pngimages/499/839/png-clipart-cat-silhouette-sticker-dog-beige-color-mammal-leaf.png"
+          "avatarURL": "https://e7.pngegg.com/pngimages/499/839/png-clipart-cat-silhouette-sticker-dog-beige-color-mammal-leaf.png",
+          "favorite": [
+            "63b412bc9f6bb331b54624ae",
+            "63b412fca3523c134418e086",
+            "63b413796e2832af1fa84d37"
+          ]
         }
       },
       "LogoutResponse": {

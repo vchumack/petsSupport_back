@@ -56,7 +56,13 @@ const userSchema = new Schema(
       match: dateRegExp,
       default: "",
     },
-    favorite: [{ type: Schema.Types.ObjectId, ref: "notice" }],
+    favorite: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "notice",
+        required: true,
+      },
+    ],
   },
   { versionKey: false, timestamps: true }
 );
