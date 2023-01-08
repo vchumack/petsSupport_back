@@ -1032,6 +1032,21 @@
                   "type": "boolean",
                   "description": "isOpen",
                   "example": "false"
+                },
+                "from": {
+                  "type": "string",
+                  "description": "open",
+                  "example": "11:00"
+                },
+                "to": {
+                  "type": "string",
+                  "description": "close",
+                  "example": "16:00"
+                },
+                "weekday": {
+                  "type": "string",
+                  "description": "weekday",
+                  "example": "SU"
                 }
               }
             }
@@ -1049,7 +1064,8 @@
             {
               "isOpen": true,
               "from": "11:00",
-              "to": "16:00"
+              "to": "16:00",
+              "weekday": "SU"
             }
           ],
           "phone": "+380931934069",
