@@ -12,11 +12,11 @@ const addNotice = async (req, res) => {
     });
     res.status(201).json(notice);
   } else {
-    const avatarURL = await uploadToCloudinary(req.file.path);
+    const imageURL = await uploadToCloudinary(req.file.path);
     const notice = await Notice.create({
       ...req.body,
       owner: _id,
-      avatarURL: avatarURL.secure_url,
+      imageURL: imageURL.secure_url,
       email,
       phone,
     });

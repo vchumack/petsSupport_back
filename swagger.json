@@ -1445,7 +1445,7 @@
             "description": "Price",
             "example": 5000
           },
-          "imageURL": {
+          "avatar": {
             "type": "string",
             "description": "Pet image",
             "example": "image.jpg"
@@ -1465,7 +1465,7 @@
           "sex": "female",
           "location": "Kyiv,Ukraine",
           "price": 5000,
-          "imageURL": "image.jpg",
+          "avatar": "image.jpg",
           "comments": "Selling an awesome puppy"
         }
       },
