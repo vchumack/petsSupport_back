@@ -54,7 +54,7 @@ const noticeSchema = new Schema(
     imageURL: {
       type: String,
       default:
-        "https://www.cleanpng.com/png-dog-paw-cat-tiger-clip-art-paw-prints-5850995",
+        "https://banner2.cleanpng.com/20180724/zlk/kisspng-dog-paw-cat-tiger-clip-art-paw-prints-5b572d6126acf1.7538522915324399051584.jpg",
     },
     comments: {
       type: String,
