@@ -3,11 +3,19 @@ const { Notice } = require("../../models/noticesSchema");
 const queryList = ["sell", "lost", "goodhands"];
 
 const getNoticeByCategory = async (req, res) => {
-  const { category } = req.query;
-
-  console.log(category);
-  if (category === "") {
-    const result = await Notice.find();
+  const { category = "", page = 1, limit = 8, title = "" } = req.query;
+  const skip = (page - 1) * limit;
+  if (category === "" && title === "") {
+    const result = await Notice.find({})
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit);
+    res.status(200).json(result);
+  } else if (title !== "" && category === "") {
+    const result = await Notice.find({ $text: { $search: title } })
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit);
     res.status(200).json(result);
   } else if (!queryList.includes(category)) {
     throw HttpError(
@@ -16,9 +24,19 @@ const getNoticeByCategory = async (req, res) => {
         ","
       )}`
     );
+  } else if (category !== "" && title === "") {
+    const result = await Notice.find({ category })
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit);
+    res.status(200).json(result);
   } else {
-    const { ...query } = req.query;
-    const result = await Notice.find({ ...query });
+    const { category, title } = req.query;
+
+    const result = await Notice.find({ category, $text: { $search: title } })
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit);
     res.status(200).json(result);
   }
 };

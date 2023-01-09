@@ -1,9 +1,8 @@
 const { Notice } = require("../../models/noticesSchema");
 const getUserNotices = async (req, res) => {
-  console.log("sfasfsafaf");
   const { _id: owner } = req.user;
-  console.log(owner);
-  const result = await Notice.find({ owner });
+
+  const result = await Notice.find({ owner }).sort({ updatedAt: -1 });
   res.status(200).json(result);
 };
 
