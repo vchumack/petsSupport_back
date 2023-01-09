@@ -301,7 +301,7 @@
           "description": "Pets object",
           "required": true,
           "content": {
-            "application/json": {
+            " multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/AddPetRequest"
               }
@@ -417,7 +417,7 @@
           "description": "User's object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateUserRequest"
               }
@@ -461,7 +461,7 @@
           "description": "Notices object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/NoticeAddRequest"
               }
@@ -501,7 +501,7 @@
           {
             "name": "category",
             "in": "query",
-            "description": "Category by notyce: [sell, lost, goodhend,'']",
+            "description": "Category by notices: [sell, lost, goodhand,'']",
             "required": false,
             "type": "string"
           },
@@ -542,7 +542,7 @@
             }
           },
           "400": {
-            "description": "Bad Request:Your request must include something from this list: [sell, lost, goodhend]",
+            "description": "Bad Request:Your request must include something from this list: [sell, lost, goodhand]",
             "content": {}
           }
         }
@@ -1148,7 +1148,9 @@
           },
           "avatar": {
             "type": "string",
-            "format": "binary"
+            "format": "binary",
+            "description": "Pet image",
+            "example": "image.jpeg"
           }
         },
         "example": {
@@ -1397,6 +1399,7 @@
           },
           "avatar": {
             "type": "string",
+            "format": "binary",
             "description": "User avatar",
             "example": "image.jpeg"
           }
@@ -1513,6 +1516,7 @@
           },
           "avatar": {
             "type": "string",
+            "format": "binary",
             "description": "Pet image",
             "example": "image.jpg"
           },
