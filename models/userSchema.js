@@ -66,14 +66,14 @@ userSchema.post("save", handleSaveErrors);
 
 const registerSchema = Joi.object({
   name: Joi.string().min(1).pattern(textRegexp).required(),
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(emailRegexp).min(10).max(63).required(),
   password: Joi.string().min(7).max(32).required(),
   phone: Joi.string().pattern(phoneRegexp).required(),
   city: Joi.string().pattern(cityRegexp).required(),
 });
 
 const loginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(emailRegexp).min(10).max(63).required(),
   password: Joi.string().min(6).required(),
 });
 
@@ -82,7 +82,7 @@ const refreshSchema = Joi.object({
 });
 const updateUserSchema = Joi.object({
   name: Joi.string().min(1).pattern(textRegexp).optional(),
-  email: Joi.string().pattern(emailRegexp).optional(),
+  email: Joi.string().pattern(emailRegexp).min(10).max(63).optional(),
   birthday: Joi.string().pattern(dateRegExp).optional(),
   phone: Joi.string().pattern(phoneRegexp).optional(),
   city: Joi.string().pattern(cityRegexp).optional(),
