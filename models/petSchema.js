@@ -4,14 +4,14 @@ const dateRegExp =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 // eslint-disable-next-line no-useless-escape
 const textRegexp = /^[A-Za-z0-9\s!@#$%^&*()_+=-`~\\\]\[{}|';:/.,?><]*$/;
-
+const nameRegexp = /^(?=.{2,16}$)([A-Za-z])*$/;
 const { handleSaveErrors } = require("../helpers");
 
 const petSchema = new Schema(
   {
     name: {
       type: String,
-      match: textRegexp,
+      match: nameRegexp,
       required: true,
     },
     birthday: {
@@ -21,7 +21,7 @@ const petSchema = new Schema(
     },
     breed: {
       type: String,
-      match: textRegexp,
+      match: nameRegexp,
       required: true,
     },
     avatarURL: {
@@ -47,9 +47,9 @@ const petSchema = new Schema(
 petSchema.post("save", handleSaveErrors);
 
 const petAddSchema = Joi.object({
-  name: Joi.string().min(2).max(16).pattern(textRegexp).required(),
+  name: Joi.string().min(2).max(16).pattern(nameRegexp).required(),
   birthday: Joi.string().pattern(dateRegExp).required(),
-  breed: Joi.string().min(2).max(16).pattern(textRegexp).required(),
+  breed: Joi.string().min(2).max(16).pattern(nameRegexp).required(),
   comments: Joi.string().min(8).max(120).pattern(textRegexp).required(),
   avatarURL: Joi.string().optional(),
 });
