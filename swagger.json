@@ -240,10 +240,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/NewsResponse"
-                  }
+                  "$ref": "#/components/schemas/NewsResponse"
                 }
               }
             }
@@ -643,7 +640,22 @@
         "tags": ["Notices"],
         "summary": "Get all users notices",
         "description": "Get all users notices",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number for pagination",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "the number of query objects to display on one page for pagination",
+            "required": false,
+            "type": "integer"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -675,7 +687,22 @@
         "tags": ["Notices"],
         "summary": "Get all users favorite notices",
         "description": "Get all users favorite notices",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number for pagination",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "the number of query objects to display on one page for pagination",
+            "required": false,
+            "type": "integer"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -1006,38 +1033,55 @@
       "NewsResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "id",
-            "example": "63b2a1aac7d7c8862b0f594f"
+          "news": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "id",
+                  "example": "63b2a1aac7d7c8862b0f594f"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "title",
+                  "example": "В День ветеринара..."
+                },
+                "url": {
+                  "type": "string",
+                  "description": "url",
+                  "example": "https://www.kmlvm.com.ua/v-den-veterynara-v-stolytsi-projde-bezkoshtovnyj-trening-z-nadannya-pershoyi-dopomogy-tvarynam/"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "description",
+                  "example": "В неділю, 14 серпня, в Тимчасовому притулку для тварин «ВДНГ» пройде ..."
+                },
+                "date": {
+                  "type": "string",
+                  "description": "date",
+                  "example": "2022-08-12"
+                }
+              }
+            }
           },
-          "title": {
-            "type": "string",
-            "description": "title",
-            "example": "В День ветеринара..."
-          },
-          "url": {
-            "type": "string",
-            "description": "url",
-            "example": "https://www.kmlvm.com.ua/v-den-veterynara-v-stolytsi-projde-bezkoshtovnyj-trening-z-nadannya-pershoyi-dopomogy-tvarynam/"
-          },
-          "description": {
-            "type": "string",
-            "description": "description",
-            "example": "В неділю, 14 серпня, в Тимчасовому притулку для тварин «ВДНГ» пройде ..."
-          },
-          "date": {
-            "type": "string",
-            "description": "date",
-            "example": "2022-08-12"
+          "totalPages": {
+            "type": "integer",
+            "description": "total pages",
+            "example": 1
           }
         },
         "example": {
-          "_id": "63b2a1aac7d7c8862b0f594f",
-          "title": "В День ветеринара...",
-          "url": "https://www.kmlvm.com.ua/v-den-veterynara-v-stolytsi-projde-bezkoshtovnyj-trening-z-nadannya-pershoyi-dopomogy-tvarynam/",
-          "description": "В неділю, 14 серпня, в Тимчасовому притулку для тварин «ВДНГ» пройде ...",
-          "date": "2022-08-12"
+          "news": [
+            {
+              "_id": "63b2a1aac7d7c8862b0f5961",
+              "title": "На Полтавщині запровадять заборону на вилов раків: коли діятиме та чому",
+              "url": "https://suspilne.media/270658-na-poltavsini-zaprovadat-zaboronu-na-vilov-rakiv-koli-diatime-ta-comu/",
+              "description": "У Полтавській області з 15 серпня починає ...",
+              "date": "2022-08-14"
+            }
+          ],
+          "totalPages": 1
         }
       },
       "ServicesResponse": {
