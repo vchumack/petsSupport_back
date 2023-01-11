@@ -12,7 +12,18 @@ const updateUser = async (req, res) => {
         new: true,
       }
     ).select("-accessToken -refreshToken -createdAt -password -updatedAt");
-    res.status(200).json(user);
+    res.status(200).json({
+      user: {
+        avatarURL: user.avatarURL,
+        userInfo: {
+          name: user.name,
+          email: user.email,
+          city: user.city,
+          phone: user.phone,
+          birthday: user.birthday,
+        },
+      },
+    });
   } else {
     const avatarURL = await uploadToCloudinary(req.file.path);
     const user = await User.findByIdAndUpdate(

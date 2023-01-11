@@ -2,20 +2,23 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
 const { handleSaveErrors } = require("../helpers");
-const phoneRegexp = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/;
+const passRegexp = /^(?=.{7,32}$)([0-9A-Za-z])*$/;
+const nameRegexp = /^(?=.{2,16}$)([A-Za-z])*$/;
+const phoneRegexp = /^\+38(0\d{9})$/;
 const dateRegExp =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 // eslint-disable-next-line no-useless-escape
-const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const cityRegexp = /^\s*(?:\w+\s*,\s*){1,}(?:\w+\s*)$/;
+const emailRegexp =
+  // eslint-disable-next-line no-useless-escape
+  /^(?=.{10,63}$)(([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/;
+const cityRegexp = /^([A-Za-z]+)([,][ ][A-Za-z]+)*$/;
 // eslint-disable-next-line no-useless-escape
-const textRegexp = /^[A-Za-z0-9\s!@#$%^&*()_+=-`~\\\]\[{}|';:/.,?><]*$/;
 
 const userSchema = new Schema(
   {
     name: {
       type: String,
-      match: textRegexp,
+      match: nameRegexp,
       required: true,
     },
     email: {
@@ -49,7 +52,8 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      default: "",
+      default:
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     },
     birthday: {
       type: String,
@@ -64,24 +68,24 @@ const userSchema = new Schema(
 userSchema.post("save", handleSaveErrors);
 
 const registerSchema = Joi.object({
-  name: Joi.string().min(1).pattern(textRegexp).required(),
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(7).max(32).required(),
+  name: Joi.string().min(1).pattern(nameRegexp).required(),
+  email: Joi.string().pattern(emailRegexp).min(10).max(63).required(),
+  password: Joi.string().pattern(passRegexp).min(7).max(32).required(),
   phone: Joi.string().pattern(phoneRegexp).required(),
   city: Joi.string().pattern(cityRegexp).required(),
 });
 
 const loginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
+  email: Joi.string().pattern(emailRegexp).min(10).max(63).required(),
+  password: Joi.string().pattern(passRegexp).min(7).max(32).required(),
 });
 
 const refreshSchema = Joi.object({
   refreshToken: Joi.string().required(),
 });
 const updateUserSchema = Joi.object({
-  name: Joi.string().min(1).pattern(textRegexp).optional(),
-  email: Joi.string().pattern(emailRegexp).optional(),
+  name: Joi.string().min(1).pattern(nameRegexp).optional(),
+  email: Joi.string().pattern(emailRegexp).min(10).max(63).optional(),
   birthday: Joi.string().pattern(dateRegExp).optional(),
   phone: Joi.string().pattern(phoneRegexp).optional(),
   city: Joi.string().pattern(cityRegexp).optional(),

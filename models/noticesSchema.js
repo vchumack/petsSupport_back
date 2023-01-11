@@ -5,9 +5,10 @@ const { handleSaveErrors } = require("../helpers");
 
 const categoryList = ["sell", "lost", "goodhands"];
 const sexList = ["male", "female"];
+const nameRegexp = /^(?=.{2,16}$)([A-Za-z])*$/;
 const dateRegExp =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
-const cityRegexp = /^\s*(?:\w+\s*,\s*){1,}(?:\w+\s*)$/;
+const cityRegexp = /^([A-Za-z]+)([,][ ][A-Za-z]+)*$/;
 // eslint-disable-next-line no-useless-escape
 const textRegexp = /^[A-Za-z0-9\s!@#$%^&*()_+=-`~\\\]\[{}|';:/.,?><]*$/;
 
@@ -25,7 +26,7 @@ const noticeSchema = new Schema(
     },
     name: {
       type: String,
-      match: textRegexp,
+      match: nameRegexp,
       default: "",
     },
     birthday: {
@@ -34,7 +35,7 @@ const noticeSchema = new Schema(
     },
     breed: {
       type: String,
-      match: textRegexp,
+      match: nameRegexp,
       default: "",
     },
     sex: {
@@ -49,10 +50,12 @@ const noticeSchema = new Schema(
     },
     price: {
       type: Number,
+      default: null,
     },
     imageURL: {
       type: String,
-      default: "https://via.placeholder.com/300.png/#FDF7F2/#111111",
+      default:
+        "https://banner2.cleanpng.com/20180724/zlk/kisspng-dog-paw-cat-tiger-clip-art-paw-prints-5b572d6126acf1.7538522915324399051584.jpg",
     },
     comments: {
       type: String,
@@ -62,6 +65,14 @@ const noticeSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
       required: true,
     },
   },
@@ -75,9 +86,9 @@ const noticeAddSchema = Joi.object({
     .valid(...categoryList)
     .required(),
   title: Joi.string().min(2).max(48).pattern(textRegexp).required(),
-  name: Joi.string().min(2).max(16).pattern(textRegexp).optional(),
+  name: Joi.string().min(2).max(16).pattern(nameRegexp).optional(),
   birthday: Joi.string().pattern(dateRegExp).optional(),
-  breed: Joi.string().min(2).max(24).pattern(textRegexp).optional(),
+  breed: Joi.string().min(2).max(24).pattern(nameRegexp).optional(),
   sex: Joi.string()
     .valid(...sexList)
     .required(),
