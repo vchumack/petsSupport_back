@@ -505,7 +505,7 @@
           {
             "name": "title",
             "in": "query",
-            "description": "search in the ешеду of notices by keyword",
+            "description": "search in the title of notices by keyword",
             "required": false,
             "type": "string"
           },
@@ -654,6 +654,13 @@
             "description": "the number of query objects to display on one page for pagination",
             "required": false,
             "type": "integer"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "search in the title of notices by keyword",
+            "required": false,
+            "type": "string"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -701,6 +708,13 @@
             "description": "the number of query objects to display on one page for pagination",
             "required": false,
             "type": "integer"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "search in the title of notices by keyword",
+            "required": false,
+            "type": "string"
           }
         ],
         "security": [{ "Bearer": [] }],

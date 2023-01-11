@@ -31,8 +31,6 @@ const getNoticeByCategory = async (req, res) => {
       .limit(limit);
     res.status(200).json(result);
   } else {
-    const { category, title } = req.query;
-
     const result = await Notice.find({ category, $text: { $search: title } })
       .sort({ updatedAt: -1 })
       .skip(skip)
