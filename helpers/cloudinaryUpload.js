@@ -13,7 +13,7 @@ cloudinary.config({
 const uploadToCloudinary = async (path) => {
   try {
     const resizeImg = await Jimp.read(path);
-    resizeImg.resize(450, 450);
+    resizeImg.cover(450, 450);
     await resizeImg.writeAsync(path);
     const result = await cloudinary.uploader.upload(path);
     fs.unlinkSync(path);
