@@ -2008,6 +2008,16 @@
             "type": "string",
             "description": "Comments",
             "example": "Selling an awesome puppy"
+          },
+          "owner": {
+            "type": "string",
+            "description": "owner of notice",
+            "example": "63bc8134b63b255e9dc342f5"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date of update notice",
+            "example": "2023-01-05T15:28:01.426Z"
           }
         },
         "example": {
@@ -2021,7 +2031,9 @@
           "location": "kyiv",
           "price": 50,
           "imageURL": "http://www.allwomens.ru/uploads/posts/2014-09/1411469687_snjatsja-krysy3.jpg",
-          "comments": "sads  axfv  asxvc  gfdhgfjhkfjgfhgdfdyrejfhh"
+          "comments": "sads  axfv  asxvc  gfdhgfjhkfjgfhgdfdyrejfhh",
+          "owner": "63b420f8613598919c6a71a8",
+          "updatedAt": "2023-01-03T12:37:18.187Z"
         }
       },
       "GetOneNoticeResponse": {
