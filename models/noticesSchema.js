@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 const { handleSaveErrors } = require("../helpers");
 
-const categoryList = ["sell", "lost", "goodhands"];
+const categoryList = ["sell", "lost", "in good hands"];
 const sexList = ["male", "female"];
 const nameRegexp = /^(?=.{2,16}$)([A-Za-z])*$/;
 const dateRegExp =
@@ -16,7 +16,7 @@ const noticeSchema = new Schema(
   {
     category: {
       type: String,
-      enum: ["sell", "lost", "goodhands"],
+      enum: ["sell", "lost", "in good hands"],
       required: true,
     },
     title: {
