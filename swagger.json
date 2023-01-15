@@ -498,7 +498,7 @@
           {
             "name": "category",
             "in": "query",
-            "description": "Category by notices: [sell, lost, goodhand,'']",
+            "description": "Category by notices: [sell, lost, in good hands,'']",
             "required": false,
             "type": "string"
           },
@@ -536,7 +536,7 @@
             }
           },
           "400": {
-            "description": "Bad Request:Your request must include something from this list: [sell, lost, goodhand]",
+            "description": "Bad Request:Your request must include something from this list: [sell, lost,in good hands]",
             "content": {}
           }
         }
@@ -1531,7 +1531,7 @@
         "properties": {
           "category": {
             "type": "string",
-            "description": "Category by notice",
+            "description": "Category by notice on of [sell,lost,in good hands]",
             "example": "Sell"
           },
           "title": {

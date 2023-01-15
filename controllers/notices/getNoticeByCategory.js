@@ -1,6 +1,6 @@
 const { HttpError } = require("../../helpers");
 const { Notice } = require("../../models/noticesSchema");
-const queryList = ["sell", "lost", "goodhands"];
+const queryList = ["sell", "lost", "in good hands"];
 
 const getNoticeByCategory = async (req, res) => {
   const { category = "", page = 1, limit = 8, title = "" } = req.query;
